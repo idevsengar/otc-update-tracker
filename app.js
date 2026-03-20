@@ -46,7 +46,7 @@ async function init() {
 }
 
 async function loadData() {
-  const res = await fetch("data.json?_=" + Date.now());
+  const res = await fetch("data.json?_=" + Date.now()); // cache-bust
   const data = await res.json();
 
   // Normalize rows and add a parsed date field for potential sorting
@@ -145,7 +145,7 @@ function render() {
     // Turn Update Email Link into a button if it's non-empty
     const link = String(r["Update Email Link"] || "").trim();
     const linkHtml = link
-      ? `<a class="btn" href="${escapeAttr(link)}" target="_blank" rel="noopener">Open Email</a>`
+      ? `${escapeAttr(link)}Open Email</a>`
       : "";
 
     return `<tr>${
@@ -183,7 +183,7 @@ function saveFilters() {
 })();
 
 function escapeHtml(v) {
-  return String(v ?? "").replace(/[&<>"']/g, s => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;" }[s]));
+  return String(v ?? "").replace(/[&<>"']/g, s => ({ "&":"&amp;","<":"&lt;","">":"&gt;","\"":"&quot;","'":"&#039;" }[s]));
 }
 function escapeAttr(v) {
   return String(v ?? "").replace(/"/g, "&quot;");
