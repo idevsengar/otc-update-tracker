@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>OTC Update Tracker</title>
 
-  <!-- Correct CSS link -->
-  style.css?v=1
+  <!-- Correct CSS link + cache bust -->
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
   <header class="topbar">
@@ -52,7 +52,8 @@
     <span>Tip: Use dropdowns + search; your last filters are remembered.</span>
   </footer>
 
-  <!-- Correct JS include at the END of body -->
-  app.js?v=1</script>
+  <!-- Correct JS include at the END + cache bust -->
+  <script src="app.js?v=3"></script>
 </body>
 </html>
+``
