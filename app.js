@@ -142,7 +142,6 @@ function applyFilters() {
 
 function render() {
   els.body.innerHTML = state.filtered.map(r => {
-    // Turn Update Email Link into a button if it's non-empty
     const link = String(r["Update Email Link"] || "").trim();
     const linkHtml = link
       ? `${escapeAttr(link)}Open Email</a>`
