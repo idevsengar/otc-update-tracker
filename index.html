@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>OTC Update Tracker</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="topbar">
+    <h1>OTC Update Tracker</h1>
+    <div class="kpis">
+      <div class="kpi"><span id="kpi-total">0</span><label>Total</label></div>
+      <div class="kpi"><span id="kpi-visible">0</span><label>Visible</label></div>
+    </div>
+  </header>
 
-<h1>OTC Update Tracker</h1>
-<p>Website setup in progress...</p>
+  <section class="filters">
+    <div class="filter">
+      <label for="district">District</label>
+      <select id="district"><option value="">All</option></select>
+    </div>
+    <div class="filter">
+      <label for="customer">Customer</label>
+      <select id="customer"><option value="">All</option></select>
+    </div>
+    <div class="filter">
+      <label for="person">Responsible</label>
+      <select id="person"><option value="">All</option></select>
+    </div>
+    <div class="filter search">
+      <label for="search">Search</label>
+      <input id="search" type="text" placeholder="Search across all columns…" />
+    </div>
+    <div class="actions">
+      <button id="reset">Reset</button>
+      <button id="download">Download visible (.csv)</button>
+    </div>
+  </section>
 
-<script src="app.js"></script>
+  <section class="table-wrap">
+    <table id="grid">
+      <thead id="grid-head"></thead>
+      <tbody id="grid-body"></tbody>
+    </table>
+  </section>
+
+  <footer class="foot">
+    <span>Built for BSNA OTC Billing • v1</span>
+    <span>Tip: Use dropdowns + search; your last filters are remembered.</span>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
