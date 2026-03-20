@@ -1,17 +1,20 @@
-name: Build data.json from Excel
+name: Build & Deploy Update Tracker
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'SA-Update Tracker.xlsx'
+      - 'index.html'
+      - 'style.css'
+      - 'app.js'
       - '.github/workflows/build.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write          # allow commit of data.json
-  pages: write             # allow Pages deployment
-  id-token: write          # required by deploy-pages
+  contents: read        # we no longer push to the repo
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -37,33 +40,29 @@ jobs:
       - name: Convert Excel to JSON
         run: |
           python - << 'PY'
-          import pandas as pd, json
-          df = pd.read_excel('SA-Update Tracker.xlsx', engine='openpyxl')
-          # Standardize date-like columns to ISO yyyy-mm-dd
+          import pandas as pd, json, os
+          src = 'SA-Update Tracker.xlsx'
+          if not os.path.exists(src):
+            raise SystemExit(f"Missing Excel file: {src}")
+          df = pd.read_excel(src, engine='openpyxl')
+          # Normalize any date-like columns to ISO yyyy-mm-dd
           for col in df.columns:
             if 'date' in col.lower():
               df[col] = pd.to_datetime(df[col], errors='coerce').dt.strftime('%Y-%m-%d')
-          # Replace NaN with empty strings for clean JSON
           records = json.loads(df.fillna('').to_json(orient='records'))
           with open('data.json', 'w', encoding='utf-8') as f:
             json.dump(records, f, ensure_ascii=False, indent=2)
           PY
 
-      - name: Commit & push data.json
+      - name: Prepare site files
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json
-          git commit -m "Update data.json from Excel" || echo "No changes"
-          git push
+          mkdir -p _site
+          cp -f index.html style.css app.js data.json _site/
 
-      - name: Prepare static site files for Pages
-        run: |
-          # Ensure index.html, style.css, app.js and data.json are in the root of the artifact
-          mkdir -p ./_site
-          cp -f index.html style.css app.js data.json ./_site/ 2>/dev/null || true
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-      - name: Upload artifact for Pages
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
