@@ -58,7 +58,7 @@ thead { background: #0b1023; position: sticky; top: 64px; z-index: 5; }
 th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
 th { text-align: left; color: #a3aed0; }
 tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-td:nth-child(6) { white-space: pre-wrap; } /* Update Summary preserves line breaks */
+td:nth-child(6) { white-space: pre-wrap; }
 
 a.btn {
   color: #fff; text-decoration: none; background: #334155; border: 1px solid #3b4456;
