@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>OTC Update Tracker</title>
 
-  <!-- ✅ Correct CSS tag (this was missing before) -->
-  style.css?v=9
+  <link rel="stylesheet" href="style.css?v=1" />
 </head>
 <body>
   <header class="topbar">
@@ -52,10 +51,12 @@
     <span>Tip: Use dropdowns + search; your last filters are remembered.</span>
   </footer>
 
-  <!-- Optional: a small alert zone for runtime errors -->
+  <!-- small debug banner if something fails -->
   <div id="app-alert" style="display:none; margin:12px 20px; padding:10px; color:#fff; background:#b91c1c; border-radius:8px;"></div>
 
-  <!-- ✅ Correct JS tag (this was missing before) -->
-  app.js?v=9</script>
+  <script src="app.js?v=1"></script>
+  <noscript style="color:#fff;background:#b91c1c;display:block;padding:10px;margin:12px 20px;border-radius:8px;">
+    JavaScript is disabled, so the tracker cannot load. Please enable JavaScript.
+  </noscript>
 </body>
 </html>
